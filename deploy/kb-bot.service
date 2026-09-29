@@ -1,0 +1,40 @@
+[Unit]
+Description=Telegram KB bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kbbot
+Group=kbbot
+WorkingDirectory=/opt/kb-bot
+ExecStart=/opt/kb-bot/.venv/bin/python -u bot.py
+
+# Падает — поднимаем. StartLimit не задаём: бот сам умеет ждать сеть,
+# и заглушить его насовсем из-за череды рестартов нам не надо.
+Restart=always
+RestartSec=5
+
+# Даём доиграть текущие апдейты: бот ловит SIGTERM и выходит сам
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Логи уходят в journald: journalctl -u kb-bot -f
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kb-bot
+
+# Ограничение прав: из всей файловой системы пишем только в свою папку
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/kb-bot
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

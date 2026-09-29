@@ -1,0 +1,17 @@
+# Секреты — никогда в репозиторий
+.env
+
+# База знаний и её журналы
+knowledge.db
+knowledge.db-wal
+knowledge.db-shm
+backups/
+
+# Окружение (непереносимо между компьютерами — всегда создаётся заново)
+.venv/
+__pycache__/
+*.pyc
+
+# Служебное
+check_ai_log.txt
+.fuse_hidden*

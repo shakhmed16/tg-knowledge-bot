@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup of the KB bot knowledge base
+
+[Service]
+Type=oneshot
+User=kbbot
+Group=kbbot
+ExecStart=/opt/kb-bot/deploy/backup.sh
+SyslogIdentifier=kb-bot-backup

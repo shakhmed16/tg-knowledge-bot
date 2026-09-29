@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily backup of the KB bot knowledge base
+
+[Timer]
+OnCalendar=*-*-* 04:30:00
+# если сервер был выключен в 04:30 — сделать бэкап сразу после включения
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target
